@@ -1,0 +1,133 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>5 ways to write better mocks</title>
+
+		<link rel="stylesheet" href="css/reset.css">
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/black.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/monokai.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<style>
+			.shadow { text-shadow: 1px 1px 3px #000, 4px 4px 5px darkblue; }
+			.slide-title { text-shadow: 1px 1px 3px #000, 4px 4px 5px darkblue; font-size: larger; }
+
+			html.dimbg .slide-background { opacity: 0.1 !important; }
+			html.dimishbg .slide-background { opacity: 0.3 !important; }
+
+			.black-text {
+				color: black;
+				text-shadow: 1px 1px 1px black, 2px 2px 2px white;
+			}
+
+			.white-text {
+				color: white;
+				text-shadow: 1px 1px 1px white, 2px 2px 2px black;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section data-background="img/cat-silhouette-cats-silhouette-694730.jpg" data-transition="linear">
+
+					<div style="padding-right: 550px;">
+						<p class="slide-title">5 ways to write</p>
+
+						<h2><span class="shadow">Better Mocks</span></h2>
+
+						<p class="shadow">
+							<br />
+							By @JeroenDeDauw
+							<br />
+							<a href="https://entropywins.wtf">
+								www.EntropyWins.wtf
+							</a>
+						</p>
+
+						<br />
+
+						<p class="shadow" style="font-size: small; padding-bottom: 50px; padding-top: 50px">
+							Use "page down" and "page up" to navigate
+						</p>
+					</div>
+				</section>
+
+				<section data-background="img/rotiv-artic-fLL6q29IccA-unsplash.jpg">
+					<div style="margin-bottom: 500px; margin-right: 500px;">
+						<p class="white-text">Test doubles</p>
+
+						<ul style="list-style: none" class="white-text">
+							<li>Stub - fixed return</li>
+							<li>Spy - records calls</li>
+							<li>Mock - makes assertions</li>
+							<li>Fake - implementation</li>
+						</ul>
+					</div>
+				</section>
+
+				<section data-background="img/nuria-fosas-forns-CbEQd5Fpv9k-unsplash.jpg">
+					<div style="margin-bottom: 500px; margin-left: 500px;">
+						<p class="slide-title">#1: don't bind to method names</p>
+
+						<pre style="font-size: x-large; margin-left: 150px; width: 500px;"><code class="PHP" data-trim data-line-numbers>
+
+					</code></pre>
+					</div>
+				</section>
+
+				<section data-background="img/cattribution.jpg" data-transition="fade">
+					<h3><span class="shadow"><span style="opacity: 0.75">C</span>attribution</span></h3>
+					<ul style="font-size: 25px; list-style: none">
+						<li class="shadow">"<a href="https://pixabay.com/photos/cat-kitten-tree-green-summer-1647775/">Questions cat</a>" by "Kessa"</li>
+						<li class="shadow">"Attribution cats" by Florencia Lewis, CC BY 2.0</li>
+						<li class="shadow">These slides by Jeroen De Dauw</li>
+					</ul>
+				</section>
+
+				<section data-background="img/cat-1647775_1920.jpg" data-transition="fade">
+					<p class="shadow" style="font-size: 70px; margin-bottom: 200px; margin-top: 80px; margin-left: 700px">Questions?</p>
+					<div style="font-size: 50px; margin-bottom: 0; margin-left: 120px">
+						<p class="shadow">www.EntropyWins.wtf</p>
+						<p class="shadow">@JeroenDeDauw</p>
+					</div>
+				</section>
+			</div>
+		</div>
+
+		<script src="js/reveal.js"></script>
+
+		<script>
+			Reveal.initialize({
+				width: 1200,
+				height: 700,
+				margin: 0.05,
+
+				history: true,
+				progress: true,
+				controls: false,
+
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true }
+				]
+			});
+		</script>
+	</body>
+</html>

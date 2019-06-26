@@ -1,0 +1,365 @@
+<section data-background="img/cat-2083492_1920.jpg" data-transition="fade">
+    <ul style="margin-bottom: 500px; margin-left: 600px; list-style: none" class="black-text">
+        <li>Iterators</li>
+        <li>Collections in PHP</li>
+        <li class="fragment">Generators</li>
+        <li class="fragment">PHP is fun</li>
+    </ul>
+</section>
+
+<section data-background="img/josh-couch-264693-unsplash.jpg" data-state="dimbg">
+    <h3>Iterators</h3>
+
+    <pre style="font-size: x-large"><code class="PHP" data-trim data-line-numbers>
+function doStuff(array $things) {
+    foreach ($things as $thing) {
+        /* ... */
+    }
+}
+					</code></pre>
+
+    <pre style="font-size: x-large" class="fragment"><code class="PHP" data-trim data-line-numbers="1">
+function doStuff(Iterator $things) {
+    foreach ($things as $thing) {
+        /* ... */
+    }
+}
+					</code></pre>
+</section>
+
+<section data-background="img/stephan-henning-1259794-unsplash.jpg" data-transition="fade">
+    <h3>Find the cat</h3>
+
+    <br />
+    <br />
+    <br />
+
+
+    <ul style="list-style: none" class="fragment">
+        <li>Directory with .txt files</li>
+        <li>One contains <strong>~=[,,_,,]:3</strong></li>
+    </ul>
+
+    <br />
+    <br />
+    <br />
+
+</section>
+
+<section data-background="img/raul-varzar-750436-unsplash.jpg" data-state="dimbg">
+					<pre style="font-size: x-large"><code class="PHP" data-trim data-line-numbers>
+function findFileWithNyanCat(string $path): ?string {
+    foreach (glob($path . '*.txt') as $file) {
+        $fileContent = file_get_contents($file);
+
+        if (in_string('~=[,,_,,]:3', $fileContent)) {
+            return $fileContent;
+        }
+    }
+    return null;
+}
+					</code></pre>
+
+    <pre style="font-size: x-large" class="fragment"><code class="PHP" data-trim data-line-numbers>
+function getContentsOfTextFiles($path): array {
+    // glob and file_get_contents
+}
+
+function findTextWithNyanCat(array $texts): ?string {
+    foreach ($texts as $text) {
+        if (in_string('~=[,,_,,]:3', $text)) {
+            return $text;
+        }
+    }
+    return null;
+}
+
+findTextWithNyanCat(getContentsOfTextFiles($path));
+					</code></pre>
+</section>
+
+<section data-background="img/raul-varzar-750436-unsplash.jpg" data-state="dimbg">
+					<pre style="font-size: x-large"><code class="PHP" data-trim data-line-numbers>
+class TextFileIterator implements Iterator {
+    /* ... */
+    public function current() {
+        // return file_get_contents
+    }
+    /* ... */
+}
+					</code></pre>
+
+    <pre style="font-size: x-large"><code class="PHP" data-trim data-line-numbers="1,8">
+function findTextWithNyanCat(Iterator $texts): ?string {
+    foreach ($texts as $text) {
+        if (in_string('~=[,,_,,]:3', $text)) { /*...*/ }
+    }
+    return null;
+}
+
+findTextWithNyanCat(new TextFileIterator($path));
+					</code></pre>
+
+    <pre style="font-size: x-large; margin-bottom: 100px" class="fragment"><code class="PHP" data-trim data-line-numbers>
+findTextWithNyanCat(new DatabaseIterator(/*...*/));
+findTextWithNyanCat(new ArrayIterator(['test text', '~=[,,_,,]:3']));
+					</code></pre>
+</section>
+
+<section data-background="img/borna-bevanda-500123-unsplash.jpg" data-transition="fade">
+    <div style="margin-bottom: 200px; margin-right: 460px" class="black-text">
+        <ul style="list-style: none">
+            <li class="fragment" data-fragment-index="5">iterable</li>
+            <ul>
+                <li class="fragment" data-fragment-index="4">array</li>
+                <li class="fragment" data-fragment-index="2">Traversable</li>
+                <ul>
+                    <li>Iterator</li>
+                    <ul>
+                        <li>Generator</li>
+                    </ul>
+                    <li class="fragment" data-fragment-index="1">IteratorAggregate</li>
+                </ul>
+            </ul>
+        </ul>
+
+        <br />
+        <br />
+
+        <ul style="list-style: none" class="fragment" data-fragment-index="3">
+            <li>iterator_count(Traversable $t)</li>
+            <li>iterator_to_array(Traversable $t)</li>
+        </ul>
+    </div>
+</section>
+
+<section data-background="img/lodewijk-hertog-501248-unsplash.jpg" data-state="dimbg">
+    <h3>Generators</h3>
+
+    <pre style="font-size: x-large" class="fragment"><code class="PHP" data-trim data-line-numbers>
+function newNyanGenerator(): Generator {
+    yield '~=[,,_,,]:3';
+    yield 'Nyan!';
+}
+
+$generator = newNyanGenerator();
+
+foreach ($generator as $text) {
+    echo $text . ' ';
+}
+
+// ~=[,,_,,]:3 Nyan!
+					</code></pre>
+
+    <ul style="list-style: none" class="fragment">
+        <li>new LimitIterator(Iterator $i)</li>
+        <li>new CachingIterator(Iterator $i)</li>
+    </ul>
+</section>
+
+<section data-background="img/paul-hanaoka-273394-unsplash.jpg" data-transition="fade">
+    <p class="black-text" style="margin-bottom: 200px;">IteratorAggregate + Generator = &lt;3</p>
+</section>
+
+<section data-background="img/ludemeula-fernandes-451948-unsplash.jpg" data-state="dimbg" data-transition="fade">
+					<pre style="font-size: x-large"><code class="PHP" data-trim data-line-numbers="11-13">
+function newNyanGenerator(): Generator {
+    yield '~=[,,_,,]:3';
+    yield 'Nyan!';
+}
+
+$generator = newNyanGenerator();
+
+foreach ($generator as $text) {
+    echo $text;
+}
+foreach ($generator as $text) {
+    echo $text; // BOOM!
+}
+					</code></pre>
+</section>
+
+<section data-background="img/ludemeula-fernandes-451948-unsplash.jpg" data-state="dimbg">
+					<pre style="font-size: x-large"><code class="PHP" data-trim data-line-numbers>
+interface IteratorAggregate extends Traversable {
+    public function getIterator(): Traversable;
+}
+					</code></pre>
+
+    <pre style="font-size: x-large" class="fragment"><code class="PHP" data-trim data-line-numbers>
+class NyanNyan implements IteratorAggregate {
+    public function getIterator(): Traversable {
+        yield '~=[,,_,,]:3';
+        yield 'Nyan!';
+    }
+}
+
+$traversable = new NyanNyan();
+
+foreach ($traversable as $text) {
+    echo $text;
+}
+foreach ($traversable as $text) {
+    echo $text; // works fine
+}
+					</code></pre>
+</section>
+
+<section data-background="img/daria-nepriakhina-99254-unsplash.jpg" data-transition="fade">
+    <h3 style="margin-bottom: 500px">Real world example</h3>
+</section>
+
+<section data-background="img/jason-blackeye-223757-unsplash.jpg" data-transition="fade" data-state="dimishbg">
+					<pre style="font-size: x-large; margin-bottom: 250px"><code class="PHP" data-trim data-line-numbers>
+private function getMailTemplatesOnDisk(array $mailTemplatePaths): array {
+    $mailTemplatesOnDisk = [];
+
+    foreach ($mailTemplatePaths as $path) {
+        $mailFilesInFolder = glob($path . '/Mail_*');
+        array_walk($mailFilesInFolder, function(&$filename) {
+            $filename = basename($filename);
+        });
+        $mailTemplatesOnDisk = array_merge($mailTemplatesOnDisk, $mailFilesInFolder);
+    }
+
+    return $mailTemplatesOnDisk;
+}
+					</code></pre>
+</section>
+
+<section data-background="img/jason-blackeye-223757-unsplash.jpg" data-transition="fade" data-state="dimishbg">
+					<pre style="font-size: x-large; margin-bottom: 250px"><code class="PHP" data-trim data-line-numbers>
+class MailTemplateFilenameTraversable implements \IteratorAggregate {
+    public function __construct(array $mailTemplatePaths) {
+        $this->mailTemplatePaths = $mailTemplatePaths;
+    }
+
+    public function getIterator() {
+        foreach ($this->mailTemplatePaths as $path) {
+            foreach (glob( $path . '/Mail_*') as $fileName) {
+                yield basename($fileName);
+            }
+        }
+    }
+}
+					</code></pre>
+</section>
+
+<section data-background="img/taylor-grote-516831-unsplash.jpg" data-transition="fade">
+    <div style="margin-bottom: 200px; margin-left: 700px">
+        <p class="white-text">Generators also can...</p>
+
+        <pre style="font-size: x-large"><code class="PHP" data-trim>
+yield "Iterators" => "are useful";
+yield "Generators" => "are awesome";
+// ["Iterators" => "are useful",
+// "Generators" => "are awesome"]
+						</code></pre>
+
+        <pre style="font-size: large" class="fragment"><code class="PHP" data-trim>
+yield from [1, 2, 3];
+yield from new ArrayIterator([4, 5]);
+// 1, 2, 3, 4, 5
+						</code></pre>
+
+        <pre style="font-size: large" class="fragment"><code class="PHP" data-trim>
+// Flattens iterable[] into Generator
+foreach ($collections as $collection) {
+    yield from $collection;
+}	</code></pre>
+    </div>
+</section>
+
+<section data-background="img/james-sutton-705775-unsplash.jpg" data-transition="fade">
+    <div style="margin-bottom: 200px; margin-right: 550px">
+						<pre style="font-size: large"><code class="PHP" data-trim>
+class SeriousBiznessTest extends PHPUnitSomething {
+    public function testContainsNyan(string $text) {
+        $this->assertContains('~=[,,_,,]:3', $text);
+    }
+
+    public function nyanTextProvider(): array {
+         return [
+             [ 'Foo ~=[,,_,,]:3' ],
+             [ 'Bar ~=[,,_,,]:3' ],
+             [ 'message' => 'Baz ~=[,,_,,]:3' ],
+         ];
+    }
+}
+						</code></pre>
+
+        <pre style="font-size: x-large" class="fragment"><code class="PHP" data-trim>
+public function nyanTextProvider(): iterable {
+    yield [ 'Foo ~=[,,_,,]:3' ];
+    yield [ 'Bar ~=[,,_,,]:3' ];
+    yield [ 'message' => 'Baz ~=[,,_,,]:3' ];
+}
+						</code></pre>
+    </div>
+</section>
+
+<section data-background="img/mikhail-vasilyev-253977-unsplash.jpg" data-transition="fade">
+
+</section>
+
+<section data-background="img/mikhail-vasilyev-253977-unsplash.jpg" data-transition="fade" data-state="dimishbg">
+					<pre style="font-size: x-large"><code class="PHP" data-trim data-line-numbers="1,2">
+function doStuff(iterable $things) {
+    foreach ($things as $thing) {
+        /* ... */
+    }
+}
+					</code></pre>
+
+    <pre style="font-size: x-large" class="fragment"><code class="PHP" data-trim data-line-numbers="2">
+function doStuff(iterable $things) {
+    foreach (array_chunk($things, 2) as $twoThings) {
+        /* ... */
+    }
+}
+					</code></pre>
+
+    <pre style="font-size: x-large" class="fragment"><code class="PHP" data-trim data-line-numbers>
+function iterable_to_array(iterable $iterable): array {
+    if (is_array($iterable)) {
+        return $iterable;
+    }
+    return iterator_to_array($iterable);
+}
+					</code></pre>
+</section>
+
+<section data-background="img/mikhail-vasilyev-253977-unsplash.jpg" data-transition="slide" data-state="dimishbg">
+    <p class="slide-title">iterable &#8594; Iterator</p>
+
+    <pre style="font-size: x-large" class="fragment"><code class="PHP" data-trim>
+function iterable_to_iterator(iterable $iterable): Iterator {
+    if ($iterable instanceof Iterator) {
+        return $iterable;
+    }
+    if (is_array($iterable)) {
+        return new ArrayIterator($iterable);
+    }
+
+    // TODO: IteratorAggregate case
+}
+					</code></pre>
+
+    <pre style="font-size: x-large" class="fragment"><code class="PHP" data-trim>
+    return new IteratorIterator($iterable);
+					</code></pre>
+
+    <pre style="font-size: x-large" class="fragment"><code class="PHP" data-trim>
+interface IteratorAggregate extends Traversable {
+    public function getIterator();
+}
+					</code></pre>
+
+    <div class="fragment">
+						<pre style="font-size: x-large"><code class="PHP" data-trim>
+    return new \WMDE\TraversableIterator\TraversableIterator($iterable);
+						</code></pre>
+
+        <p class="black-text">github.com/wmde/iterable-functions</p>
+    </div>
+</section>
