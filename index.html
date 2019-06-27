@@ -67,16 +67,50 @@
 					</div>
 				</section>
 
+				<section data-background="img/nuria-fosas-forns-CbEQd5Fpv9k-unsplash.jpg">
+					<div style="margin-bottom: 50px;">
+						<p class="slide-title">#1: dedicated creation functions</p>
+
+						<pre style="font-size: x-large;"><code class="PHP" data-trim>
+public function myNiceTest() {
+    $serviceStub = $this->createMock( Service::class );
+
+    $serviceStub->expects( $this->once() )
+                ->method( 'getNyan' )
+                ->willThrow( new NotEnoughNyanException() );
+    $serviceStub->expects( $this->once() )
+                ->method( 'getMoreNyan' )
+                ->willThrow( new NotEnoughNyanException() );
+
+    $classUnderTest = new SomeClass($serviceStub);
+    $classUnderTest->doThings();
+
+    $this->someAssertionStuff(/*...*/);
+}
+
+						</code></pre>
+
+						<pre style="font-size: x-large;" class="fragment"><code class="PHP" data-trim>
+public function myNiceTest() {
+    $classUnderTest = new SomeClass($this->newThrowingService());
+    $classUnderTest->doThings();
+
+    $this->someAssertionStuff(/*...*/);
+}
+						</code></pre>
+					</div>
+				</section>
+
 				<section data-background="img/rotiv-artic-fLL6q29IccA-unsplash.jpg">
 					<div style="margin-bottom: 500px; margin-right: 500px;">
-						<p class="white-text">Test doubles</p>
+						<p class="white-text">#2: know your test doubles</p>
 
 						<ul style="list-style: none" class="white-text">
-							<li>Dummy - does nothing</li>
-							<li>Stub - fixed return</li>
-							<li>Spy - records calls</li>
-							<li>Mock - makes assertions</li>
-							<li>Fake - implementation</li>
+							<li>Dummy<span class="fragment"> - does nothing</span></li>
+							<li>Stub<span class="fragment"> - fixed return</span></li>
+							<li>Spy<span class="fragment"> - records calls</span></li>
+							<li>Mock<span class="fragment"> - makes assertions</span></li>
+							<li>Fake<span class="fragment"> - implementation</span></li>
 						</ul>
 					</div>
 				</section>
@@ -134,7 +168,7 @@ $logger->expects( $this->once() )
 
 				<section data-background="img/nuria-fosas-forns-CbEQd5Fpv9k-unsplash.jpg">
 					<div style="margin-bottom: 500px">
-						<p class="slide-title fragment" data-fragment-index="2">#5: use your own test doubles</p>
+						<p class="slide-title fragment">#5: use your own test doubles</p>
 
 						<pre style="font-size: x-large;"><code class="PHP" data-trim>
 $serviceStub = $this->createMock( Service::class );
@@ -144,10 +178,53 @@ $serviceStub->expects( $this->any() )
             ->willReturn( '~=[,,_,,]:3' );
 						</code></pre>
 
-						<pre style="font-size: x-large;" class="fragment" data-fragment-index="2"><code class="PHP" data-trim>
+						<pre style="font-size: x-large;" class="fragment"><code class="PHP" data-trim>
 class StubService implements Service {
     public function getNyan(): string {
         return '~=[,,_,,]:3';
+    }
+}
+						</code></pre>
+					</div>
+				</section>
+
+				<section data-background="img/nuria-fosas-forns-CbEQd5Fpv9k-unsplash.jpg">
+					<div style="margin-bottom: 500px">
+						<p class="slide-title">#5: use your own test doubles</p>
+
+						<pre style="font-size: x-large;"><code class="PHP" data-trim>
+class LoggerSpy extends \Psr\Log\AbstractLogger {
+    private $logCalls = [];
+
+    public function log( $level, $message, array $context = [] ) {
+        $this->logCalls[] = [ $level, $message, $context ];
+    }
+
+    public function getLogCalls() {
+        return $this->logCalls;
+    }
+}
+						</code></pre>
+					</div>
+				</section>
+
+				<section data-background="img/nuria-fosas-forns-CbEQd5Fpv9k-unsplash.jpg">
+					<div style="margin-bottom: 500px">
+						<p class="slide-title">#5: use your own test doubles</p>
+
+						<pre style="font-size: x-large;"><code class="PHP" data-trim>
+class InMemoryKittenRepository implements KittenRepository {
+    private $kittens = [];
+
+    public function save(Kitten $kitten) {
+        $this->kittens[$kitten->getId()] = $kitten;
+    }
+
+    public function getKittenById(KittenId $id): Kitten {
+        if (array_key_exists($id, $this->kittens)) {
+            return $this->kittens[$kittenId];
+        }
+        throw new KittenNotFound();
     }
 }
 						</code></pre>
@@ -184,6 +261,8 @@ class StubService implements Service {
 				history: true,
 				progress: true,
 				controls: false,
+
+				transition: 'fade',
 
 				dependencies: [
 					{ src: 'plugin/markdown/marked.js' },
