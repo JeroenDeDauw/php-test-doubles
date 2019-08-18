@@ -67,10 +67,11 @@
 					</div>
 				</section>
 
-				<section data-background="img/nuria-fosas-forns-CbEQd5Fpv9k-unsplash.jpg">
+				<section data-background="img/manja-vitolic-gKXKBY-C-Dk-unsplash.jpg">
 					<div style="margin-bottom: 50px;">
 						<p class="slide-title">#1: dedicated creation functions</p>
 
+						<div>
 						<pre style="font-size: x-large;"><code class="PHP" data-trim>
 public function myNiceTest() {
     $serviceStub = $this->createMock(Service::class);
@@ -98,19 +99,22 @@ public function myNiceTest() {
     $this->someAssertionStuff(/*...*/);
 }
 						</code></pre>
+						</div>
 					</div>
 				</section>
 
-				<section data-background="img/rotiv-artic-fLL6q29IccA-unsplash.jpg">
+				<section data-background="img/kitten-cute-cat-white-domestic-1285341.jpg">
 					<div style="margin-bottom: 500px; margin-right: 500px;">
-						<p class="white-text">#2: know your test doubles</p>
+						<p class="slide-title">#2: know your test doubles</p>
 
-						<ul style="list-style: none" class="white-text">
+						<ul style="list-style: none" class="black-text">
 							<li>Dummy<span class="fragment"> - does nothing</span></li>
 							<li>Stub<span class="fragment"> - fixed return</span></li>
 							<li>Spy<span class="fragment"> - records calls</span></li>
 							<li>Mock<span class="fragment"> - makes assertions</span></li>
-							<li>Fake<span class="fragment"> - implementation</span></li>
+							<li>&nbsp;</li>
+							<li>&nbsp;</li>
+							<li><span class="fragment" data-fragment-index="1">Fake</span><span class="fragment"> - implementation</span></li>
 						</ul>
 					</div>
 				</section>
@@ -135,9 +139,10 @@ $serviceStub->expects($this->any())
 					</div>
 				</section>
 
-				<section data-background="img/nuria-fosas-forns-CbEQd5Fpv9k-unsplash.jpg">
-					<div style="margin-bottom: 500px">
-						<p class="slide-title">#4: avoid method name binding</p>
+				<section data-background="img/koen-eijkelenboom-resized.jpg">
+					<p class="slide-title">#4: avoid method name binding</p>
+
+					<div style="margin-bottom: 500px; width: 640px; margin-left: 500px">
 
 						<pre style="font-size: large;"><code class="PHP" data-trim>
 interface LoggerInterface {
@@ -166,7 +171,7 @@ $logger->expects($this->once())
 					</div>
 				</section>
 
-				<section data-background="img/nuria-fosas-forns-CbEQd5Fpv9k-unsplash.jpg">
+				<section data-background="img/cat-domestic-cat-sleep-pet-animal-4189697.jpg">
 					<div style="margin-bottom: 500px">
 						<p class="slide-title fragment" data-fragment-index="1">#5: use your own test doubles</p>
 
@@ -192,7 +197,7 @@ $classUnderTest = new SomeClass(new StubService());
 					</div>
 				</section>
 
-				<section data-background="img/nuria-fosas-forns-CbEQd5Fpv9k-unsplash.jpg">
+				<section data-background="img/cat-domestic-cat-sleep-pet-animal-4189697.jpg">
 					<div style="margin-bottom: 500px">
 						<p class="slide-title">#5: use your own test doubles</p>
 
@@ -212,7 +217,7 @@ class LoggerSpy extends \Psr\Log\AbstractLogger {
 					</div>
 				</section>
 
-				<section data-background="img/nuria-fosas-forns-CbEQd5Fpv9k-unsplash.jpg">
+				<section data-background="img/cat-domestic-cat-sleep-pet-animal-4189697.jpg">
 					<div style="margin-bottom: 500px">
 						<p class="slide-title">#5: use your own test doubles</p>
 
@@ -235,9 +240,20 @@ class InMemoryKittenRepository implements KittenRepository {
 					</div>
 				</section>
 
+				<section data-background="img/cat-flower-kitten-stone-pet-2536662.jpg">
+					<p class="slide-title" style="margin-top: 600px">Bonus cat</p>
+				</section>
+
 				<section data-background="img/cattribution.jpg" data-transition="fade">
 					<h3><span class="shadow"><span style="opacity: 0.75">C</span>attribution</span></h3>
 					<ul style="font-size: 25px; list-style: none">
+						<li class="shadow">"<a href="https://pixabay.com/photos/cat-silhouette-cats-silhouette-694730/">Title slide cat</a>" by "bella67"</li>
+						<li class="shadow">"<a href="https://unsplash.com/photos/gKXKBY-C-Dk">Dedicated functions cat</a>" by "Manja Vitolic"</li>
+						<li class="shadow">"<a href="https://pixabay.com/photos/kitten-cute-cat-white-domestic-1285341/">Test doubles cat</a>" by "Pexels"</li>
+						<li class="shadow">"<a href="https://unsplash.com/photos/CbEQd5Fpv9k">Call count binding cat</a>" by "Núria Fosas Forns"</li>
+						<li class="shadow">"<a href="https://unsplash.com/photos/IWblYR8n9zw">Method name binding cat</a>" by "Koen Eijkelenboom"</li>
+						<li class="shadow">"<a href="https://pixabay.com/photos/cat-domestic-cat-sleep-pet-animal-4189697/">Own test doubles cat</a>" by "KatinkavomWolfenmond"</li>
+						<li class="shadow">"<a href="https://pixabay.com/photos/cat-flower-kitten-stone-pet-2536662/">Bonus cat</a>" by "Dimhou"</li>
 						<li class="shadow">"<a href="https://pixabay.com/photos/cat-kitten-tree-green-summer-1647775/">Questions cat</a>" by "Kessa"</li>
 						<li class="shadow">"Attribution cats" by Florencia Lewis, CC BY 2.0</li>
 						<li class="shadow">These slides by Jeroen De Dauw</li>
