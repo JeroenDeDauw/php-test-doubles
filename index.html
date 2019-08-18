@@ -168,7 +168,7 @@ $logger->expects($this->once())
 
 				<section data-background="img/nuria-fosas-forns-CbEQd5Fpv9k-unsplash.jpg">
 					<div style="margin-bottom: 500px">
-						<p class="slide-title fragment">#5: use your own test doubles</p>
+						<p class="slide-title fragment" data-fragment-index="1">#5: use your own test doubles</p>
 
 						<pre style="font-size: x-large;"><code class="PHP" data-trim>
 $serviceStub = $this->createMock(Service::class);
@@ -176,14 +176,18 @@ $serviceStub = $this->createMock(Service::class);
 $serviceStub->expects($this->any())
             ->method('getNyan')
             ->willReturn('~=[,,_,,]:3');
+
+$classUnderTest = new SomeClass($serviceStub);
 						</code></pre>
 
-						<pre style="font-size: x-large;" class="fragment"><code class="PHP" data-trim>
+						<pre style="font-size: x-large;" class="fragment" data-fragment-index="1"><code class="PHP" data-trim>
 class StubService implements Service {
     public function getNyan(): string {
         return '~=[,,_,,]:3';
     }
 }
+
+$classUnderTest = new SomeClass(new StubService());
 						</code></pre>
 					</div>
 				</section>
