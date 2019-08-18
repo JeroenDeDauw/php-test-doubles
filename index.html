@@ -73,14 +73,14 @@
 
 						<pre style="font-size: x-large;"><code class="PHP" data-trim>
 public function myNiceTest() {
-    $serviceStub = $this->createMock( Service::class );
+    $serviceStub = $this->createMock(Service::class);
 
-    $serviceStub->expects( $this->once() )
-                ->method( 'getNyan' )
-                ->willThrow( new NotEnoughNyanException() );
-    $serviceStub->expects( $this->once() )
-                ->method( 'getMoreNyan' )
-                ->willThrow( new NotEnoughNyanException() );
+    $serviceStub->expects($this->once())
+                ->method('getNyan')
+                ->willThrow(new NotEnoughNyanException());
+    $serviceStub->expects($this->once())
+                ->method('getMoreNyan')
+                ->willThrow(new NotEnoughNyanException());
 
     $classUnderTest = new SomeClass($serviceStub);
     $classUnderTest->doThings();
@@ -120,17 +120,17 @@ public function myNiceTest() {
 						<p class="slide-title">#3: avoid call count binding</p>
 
 						<pre style="font-size: x-large; margin-left: 120px; width: 580px;"><code class="PHP" data-trim>
-$serviceStub = $this->createMock( Service::class );
+$serviceStub = $this->createMock(Service::class);
 
-$serviceStub->expects( $this->once() )
-            ->method( 'getNyan' )
-            ->willReturn( '~=[,,_,,]:3' );
+$serviceStub->expects($this->once())
+            ->method('getNyan')
+            ->willReturn('~=[,,_,,]:3');
 						</code></pre>
 
 						<pre style="font-size: x-large; margin-left: 150px; width: 500px;" class="fragment"><code class="PHP" data-trim data-line-numbers="1">
-$serviceStub->expects( $this->any() )
-            ->method( 'getNyan' )
-            ->willReturn( '~=[,,_,,]:3' );
+$serviceStub->expects($this->any())
+            ->method('getNyan')
+            ->willReturn('~=[,,_,,]:3');
 						</code></pre>
 					</div>
 				</section>
@@ -155,13 +155,13 @@ interface LoggerInterface {
 						</code></pre>
 
 						<pre style="font-size: x-large;" class="fragment"><code class="PHP" data-trim data-line-numbers>
-$logger->expects( $this->once() )
-       ->method( 'emrgency' );
+$logger->expects($this->once())
+       ->method('emrgency');
 						</code></pre>
 
 						<pre style="font-size: x-large;" class="fragment"><code class="PHP" data-trim data-line-numbers="2">
-$logger->expects( $this->once() )
-       ->method( $this->anything() );
+$logger->expects($this->once())
+       ->method($this->anything());
 						</code></pre>
 					</div>
 				</section>
@@ -171,11 +171,11 @@ $logger->expects( $this->once() )
 						<p class="slide-title fragment">#5: use your own test doubles</p>
 
 						<pre style="font-size: x-large;"><code class="PHP" data-trim>
-$serviceStub = $this->createMock( Service::class );
+$serviceStub = $this->createMock(Service::class);
 
-$serviceStub->expects( $this->any() )
-            ->method( 'getNyan' )
-            ->willReturn( '~=[,,_,,]:3' );
+$serviceStub->expects($this->any())
+            ->method('getNyan')
+            ->willReturn('~=[,,_,,]:3');
 						</code></pre>
 
 						<pre style="font-size: x-large;" class="fragment"><code class="PHP" data-trim>
@@ -196,8 +196,8 @@ class StubService implements Service {
 class LoggerSpy extends \Psr\Log\AbstractLogger {
     private $logCalls = [];
 
-    public function log( $level, $message, array $context = [] ) {
-        $this->logCalls[] = [ $level, $message, $context ];
+    public function log($level, $message, array $context = []) {
+        $this->logCalls[] = [$level, $message, $context];
     }
 
     public function getLogCalls() {
